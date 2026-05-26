@@ -63,6 +63,7 @@ poetry install
 | | [📦 Product](docs/api/product.md#Product) | Класс, представляющий продукт. |
 | [**`utils.py`**](docs/api/utils.md) | | |
 | | [🔧 read_json_file](docs/api/utils.md#read_json_file) | Функция чтения JSON-файла. |
+| | [🔧 create_categories_from_json](docs/api/utils.md#create_categories_from_json) | Создаёт список категорий из JSON-файла. |
 
 > 📘 **Полная документация** с примерами и описанием параметров доступна в папке [`docs/api`](docs/api).
 
@@ -88,31 +89,31 @@ main.py не тестируется
 
 ```
 📈 Покрытие кода:
-tests/test_category.py .....                                             [ 27%]
-tests/test_logger_creator.py ..                                          [ 38%]
-tests/test_path.py ...                                                   [ 55%]
-tests/test_product.py .                                                  [ 61%]
-tests/test_utils.py .......                                              [100%]
+tests/test_category.py .....                                             [ 22%]
+tests/test_logger_creator.py ..                                          [ 31%]
+tests/test_path.py ...                                                   [ 45%]
+tests/test_product.py .                                                  [ 50%]
+tests/test_utils.py ...........                                          [100%]
 src/__init__.py             0      0   100%
 src/category.py            10      0   100%
 src/logger_creator.py      15      0   100%
-src/main.py                 2      2     0%   3-4
 src/path.py                10      0   100%
 src/product.py              6      0   100%
-src/utils.py               21      0   100%
-TOTAL                      64      2    97%
+src/utils.py               42      0   100%
+TOTAL                      83      0   100%
 Coverage HTML written to dir htmlcov/src
 
 🎯 Результаты тестов src:
-tests/test_category.py .....                                             [ 27%]
-tests/test_logger_creator.py ..                                          [ 38%]
-tests/test_path.py ...                                                   [ 55%]
-tests/test_product.py .                                                  [ 61%]
-tests/test_utils.py .......                                              [100%]
+============================= test session starts ==============================
+tests/test_category.py .....                                             [ 22%]
+tests/test_logger_creator.py ..                                          [ 31%]
+tests/test_path.py ...                                                   [ 45%]
+tests/test_product.py .                                                  [ 50%]
+tests/test_utils.py ...........                                          [100%]
 ================================ tests coverage ================================
 -----------------------------------------------------
 -----------------------------------------------------
-============================== 18 passed in 0.07s ==============================
+============================== 22 passed in 0.08s ==============================
 ```
 
 > 📊 **HTML отчёт покрытия**: [`htmlcov/index.html`](htmlcov/src/index.html)

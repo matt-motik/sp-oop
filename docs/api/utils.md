@@ -1,6 +1,6 @@
 # Модуль: `utils.py`
 
-*Сгенерировано: 2026-05-26 15:09:00*
+*Сгенерировано: 2026-05-26 21:24:52*
 
 ---
 
@@ -21,12 +21,37 @@ Args:
     filename: Путь к JSON-файлу.
 
 Returns:
-    JSON объект
-    Если JSON-файл пустой, содержит не-список или не найден, возвращается None.
+    JSON объект или None в случае неудачи.
 
 Example:
 
     >>> result = read_json_file("data/products.json")
+```
+
+---
+
+<div id="create_categories_from_json"></div>
+
+## create_categories_from_json
+
+**Тип:** function
+
+**Кратко:** Создаёт список категорий из JSON-файла.
+
+### Полная документация
+
+```python
+Создаёт список категорий из JSON-файла.
+
+Args:
+    filename: Имя JSON-файла в директории data/.
+
+Returns:
+    Список объектов Category или пустой список при ошибке.
+
+Example:
+
+    >>> result = create_categories_from_json("products.json")
 ```
 
 ---
