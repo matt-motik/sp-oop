@@ -1,7 +1,8 @@
 """Модуль основного приложения."""
 
-from category import Category
-from product import Product
+from src.category import Category
+from src.product import Product
+from src.utils import create_categories_from_json
 
 if __name__ == "__main__":
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
@@ -49,3 +50,6 @@ if __name__ == "__main__":
 
     print(Category.category_count)
     print(Category.product_count)
+
+    jsondata = create_categories_from_json("products.json")
+    print(jsondata)
