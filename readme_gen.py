@@ -407,7 +407,7 @@ def main() -> None:
     print("\n" + "=" * 50)
     test_results_src = run_tests_and_get_results_src()
     # test_results_main = run_tests_and_get_results_main()
-    update_readme_with_test_section(test_results_src )
+    update_readme_with_test_section(test_results_src)
     print("=" * 50)
 
     print("\n" + "=" * 50)
