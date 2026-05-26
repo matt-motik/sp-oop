@@ -19,6 +19,7 @@ def test_counters(category_1, category_2):
     assert category_2.category_count == 2
     assert category_2.product_count == 3
 
+
 def test_category_with_empty_products():
     category = Category("Empty Category", "No products", [])
     assert category.name == "Empty Category"

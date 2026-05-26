@@ -1,6 +1,6 @@
 """Модуль для работы с категориями."""
 
-from product import Product
+from src.product import Product
 
 
 class Category:

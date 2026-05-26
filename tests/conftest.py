@@ -10,7 +10,7 @@ def reset_counters():
     Category.category_count = 0
     Category.product_count = 0
 
-    yield # тут выполнится тест
+    yield  # тут выполнится тест
 
     # Выполнится после теста
     # в данном случае не обязательно. Но осталю на память, что так можно

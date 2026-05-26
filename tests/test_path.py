@@ -1,4 +1,6 @@
-from path import get_root_dir, get_log_path, get_data_dir
+from src.path import get_data_dir
+from src.path import get_log_path
+from src.path import get_root_dir
 
 
 def test_get_root_dir():

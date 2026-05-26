@@ -3,7 +3,7 @@
 import logging
 import os
 
-from path import get_log_path
+from src.path import get_log_path
 
 
 def create_logger(name: str) -> logging.Logger:

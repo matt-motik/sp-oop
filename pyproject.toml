@@ -141,7 +141,8 @@ omit = [
     "*/test_*.py",
     "*/__pycache__/*",
     "*/venv/*",
-    "*/site-packages/*"
+    "*/site-packages/*",
+    "src/main.py"
 ]
 
 [tool.coverage.report]
