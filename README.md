@@ -49,6 +49,23 @@ poetry install
 
 *Этот раздел генерируется автоматически из docstring.*
 
+| Модуль | Функция/Класс | Краткое описание |
+|--------|---------------|------------------|
+| [**`category.py`**](docs/api/category.md) | | |
+| | [📦 Category](docs/api/category.md#Category) | Класс, представляющий категорию продуктов. |
+| [**`logger_creator.py`**](docs/api/logger_creator.md) | | |
+| | [🔧 create_logger](docs/api/logger_creator.md#create_logger) | Функция для создания логгера. |
+| [**`path.py`**](docs/api/path.md) | | |
+| | [🔧 get_log_path](docs/api/path.md#get_log_path) | Функция для получения пути к папке с логами. |
+| | [🔧 get_root_dir](docs/api/path.md#get_root_dir) | Функция для получения пути к корневой папке проекта. |
+| | [🔧 get_data_dir](docs/api/path.md#get_data_dir) | Функция для получения пути к папке с данными. |
+| [**`product.py`**](docs/api/product.md) | | |
+| | [📦 Product](docs/api/product.md#Product) | Класс, представляющий продукт. |
+| [**`utils.py`**](docs/api/utils.md) | | |
+| | [🔧 read_json_file](docs/api/utils.md#read_json_file) | Функция чтения JSON-файла. |
+
+> 📘 **Полная документация** с примерами и описанием параметров доступна в папке [`docs/api`](docs/api).
+
 <!-- СЕКЦИЯ_AUTO_API: КОНЕЦ -->
 ### Требования
 В разработке
@@ -66,6 +83,40 @@ main.py не тестируется
 <!-- СЕКЦИЯ_AUTO_TEST: СТАРТ -->
 
 *Этот раздел генерируется автоматически на основании данных `poetry run pytest`.*
+
+### 📊 Результаты тестов SRC
+
+```
+📈 Покрытие кода:
+tests/test_category.py .....                                             [ 27%]
+tests/test_logger_creator.py ..                                          [ 38%]
+tests/test_path.py ...                                                   [ 55%]
+tests/test_product.py .                                                  [ 61%]
+tests/test_utils.py .......                                              [100%]
+src/__init__.py             0      0   100%
+src/category.py            10      0   100%
+src/logger_creator.py      15      0   100%
+src/main.py                 2      2     0%   3-4
+src/path.py                10      0   100%
+src/product.py              6      0   100%
+src/utils.py               21      0   100%
+TOTAL                      64      2    97%
+Coverage HTML written to dir htmlcov/src
+
+🎯 Результаты тестов src:
+tests/test_category.py .....                                             [ 27%]
+tests/test_logger_creator.py ..                                          [ 38%]
+tests/test_path.py ...                                                   [ 55%]
+tests/test_product.py .                                                  [ 61%]
+tests/test_utils.py .......                                              [100%]
+================================ tests coverage ================================
+-----------------------------------------------------
+-----------------------------------------------------
+============================== 18 passed in 0.07s ==============================
+```
+
+> 📊 **HTML отчёт покрытия**: [`htmlcov/index.html`](htmlcov/src/index.html)
+
 
 
 <!-- СЕКЦИЯ_AUTO_TEST: КОНЕЦ -->
