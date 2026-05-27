@@ -1,13 +1,18 @@
 """Модуль вспомогательных функций."""
 
+from __future__ import annotations
+
 import json
 import os
 from typing import Any
+from typing import TYPE_CHECKING
 
-from src.category import Category
-from src.logger_creator import create_logger
-from src.path import get_data_dir
-from src.product import Product
+from .logger_creator import create_logger
+from .path import get_data_dir
+
+if TYPE_CHECKING:
+    from .category import Category  # noqa: F401
+    from .product import Product  # noqa: F401
 
 logger = create_logger(__name__)
 
@@ -56,6 +61,9 @@ def create_categories_from_json(filename: str) -> list[Category]:
 
         >>> result = create_categories_from_json("products.json")
     """
+    from .category import Category  # noqa: F811
+    from .product import Product  # noqa: F811
+
     logger.info("Получаем данные о категориях из файла.")
     datadir = get_data_dir()
     json_data = read_json_file(os.path.join(datadir, filename))
@@ -76,3 +84,28 @@ def create_categories_from_json(filename: str) -> list[Category]:
             logger.error(f"Данные не являются корректным представлением категории. {str(err)}", exc_info=True)
     logger.info("Возвращаем список категорий.")
     return categories
+
+
+def confirm(prompt: str = "Продолжить? (y/n): ") -> bool:
+    """Запрашивает у пользователя подтверждение действия через консоль.
+
+    Args:
+        prompt: Текст приглашения для ввода.
+
+    Returns:
+        True при вводе 'y', 'yes', 'д' или 'да'.
+        False при вводе 'n', 'no', 'н' или 'нет'.
+
+    Example:
+        >>> # При вводе 'y' в консоль:
+        >>> confirm("Сохранить изменения? (y/n): ")
+        True
+    """
+    while True:
+        answer = input(prompt).strip().lower()
+        if answer in ("y", "yes", "д", "да"):
+            return True
+        elif answer in ("n", "no", "н", "нет"):
+            return False
+        else:
+            print("Пожалуйста, введите 'y' (да) или 'n' (нет).")
