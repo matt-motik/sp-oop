@@ -53,6 +53,10 @@ poetry install
 |--------|---------------|------------------|
 | [**`category.py`**](docs/api/category.md) | | |
 | | [📦 Category](docs/api/category.md#Category) | Класс, представляющий категорию продуктов. |
+| | [⚙️ Category.add_product](docs/api/category.md#Category.add_product) | Добавляет продукт в приватный список товаров категории. |
+| | [⚙️ Category.products](docs/api/category.md#Category.products) | Возвращает отформатированную строку со списком товаров категории. |
+| | [🔧 add_product](docs/api/category.md#add_product) | Добавляет продукт в приватный список товаров категории. |
+| | [🔧 products](docs/api/category.md#products) | Возвращает отформатированную строку со списком товаров категории. |
 | [**`logger_creator.py`**](docs/api/logger_creator.md) | | |
 | | [🔧 create_logger](docs/api/logger_creator.md#create_logger) | Функция для создания логгера. |
 | [**`path.py`**](docs/api/path.md) | | |
@@ -61,9 +65,16 @@ poetry install
 | | [🔧 get_data_dir](docs/api/path.md#get_data_dir) | Функция для получения пути к папке с данными. |
 | [**`product.py`**](docs/api/product.md) | | |
 | | [📦 Product](docs/api/product.md#Product) | Класс, представляющий продукт. |
+| | [⚙️ Product.new_product](docs/api/product.md#Product.new_product) | Создаёт экземпляр Product из словаря или обновляет существующий товар. |
+| | [⚙️ Product.price](docs/api/product.md#Product.price) | Геттер для получения цены продукта. |
+| | [⚙️ Product.price](docs/api/product.md#Product.price) | Сеттер для установки или обновления цены продукта. |
+| | [🔧 new_product](docs/api/product.md#new_product) | Создаёт экземпляр Product из словаря или обновляет существующий товар. |
+| | [🔧 price](docs/api/product.md#price) | Геттер для получения цены продукта. |
+| | [🔧 price](docs/api/product.md#price) | Сеттер для установки или обновления цены продукта. |
 | [**`utils.py`**](docs/api/utils.md) | | |
 | | [🔧 read_json_file](docs/api/utils.md#read_json_file) | Функция чтения JSON-файла. |
 | | [🔧 create_categories_from_json](docs/api/utils.md#create_categories_from_json) | Создаёт список категорий из JSON-файла. |
+| | [🔧 confirm](docs/api/utils.md#confirm) | Запрашивает у пользователя подтверждение действия через консоль. |
 
 > 📘 **Полная документация** с примерами и описанием параметров доступна в папке [`docs/api`](docs/api).
 
@@ -89,31 +100,31 @@ main.py не тестируется
 
 ```
 📈 Покрытие кода:
-tests/test_category.py .....                                             [ 22%]
-tests/test_logger_creator.py ..                                          [ 31%]
-tests/test_path.py ...                                                   [ 45%]
-tests/test_product.py .                                                  [ 50%]
-tests/test_utils.py ...........                                          [100%]
+tests/test_category.py .......                                           [ 21%]
+tests/test_logger_creator.py ..                                          [ 28%]
+tests/test_path.py ...                                                   [ 37%]
+tests/test_product.py .......                                            [ 59%]
+tests/test_utils.py .............                                        [100%]
 src/__init__.py             0      0   100%
-src/category.py            10      0   100%
+src/category.py            20      0   100%
 src/logger_creator.py      15      0   100%
 src/path.py                10      0   100%
-src/product.py              6      0   100%
-src/utils.py               42      0   100%
-TOTAL                      83      0   100%
+src/product.py             34      0   100%
+src/utils.py               52      0   100%
+TOTAL                     131      0   100%
 Coverage HTML written to dir htmlcov/src
 
 🎯 Результаты тестов src:
 ============================= test session starts ==============================
-tests/test_category.py .....                                             [ 22%]
-tests/test_logger_creator.py ..                                          [ 31%]
-tests/test_path.py ...                                                   [ 45%]
-tests/test_product.py .                                                  [ 50%]
-tests/test_utils.py ...........                                          [100%]
+tests/test_category.py .......                                           [ 21%]
+tests/test_logger_creator.py ..                                          [ 28%]
+tests/test_path.py ...                                                   [ 37%]
+tests/test_product.py .......                                            [ 59%]
+tests/test_utils.py .............                                        [100%]
 ================================ tests coverage ================================
 -----------------------------------------------------
 -----------------------------------------------------
-============================== 22 passed in 0.09s ==============================
+============================== 32 passed in 0.10s ==============================
 ```
 
 > 📊 **HTML отчёт покрытия**: [`htmlcov/index.html`](htmlcov/src/index.html)
@@ -140,8 +151,15 @@ tests/test_utils.py ...........                                          [100%]
 - [x] `utils.py` — чтение Json-файла
 - [x] `product.py` — Класс Продуктов
 - [x] `category.py` — Класс Категорий продуктов
-- [x] Тесты ко всем модулям (`utils`, `product`, `category`)
 - [x] Логирование важных функций
+- [x] Атрибут `products` в `Category` сделать приватным (`__products`)
+- [x] Реализовать метод `add_product()` для безопасного добавления товаров
+- [x] Реализовать геттер `@property products`, должен возвращать строку в формате: `"Название, X руб. Остаток: X шт.\n"`
+- [x] Реализовать класс-метод `Product.new_product()`, должен создавать объект из `dict`, поддерживать слияние дубликатов (сумма `quantity`, выбор `max(price)`)
+- [x] Приватизировать цену `Product`  (`__price`), реализовать геттер/сеттер
+- [x] Сеттер должен `price` валидировать `>0`, выводить предупреждение при `<=0`, запрашивать подтверждение при снижении цены
+- [x] Написать тесты для всей новой функциональности
+- [x] Проверить линтеры (`flake8`, `mypy`, `pydocstyle`, `black`, `isort`)
 - [x] Финальная вычитка документации и обновление README
 - [x] Обновить документацию
 
