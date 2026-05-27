@@ -1,7 +1,10 @@
 """Модуль для работы с категориями."""
+from .logger_creator import create_logger
+
 
 from src.product import Product
 
+logger = create_logger(__name__)
 
 class Category:
     """Класс, представляющий категорию продуктов.
@@ -16,7 +19,7 @@ class Category:
 
     name: str
     description: str
-    products: list[Product]
+    __products: list[Product]
 
     category_count: int = 0
     product_count: int = 0
@@ -31,6 +34,16 @@ class Category:
         """
         self.name = name
         self.description = description
-        self.products = products if products is not None else []
+        self.__products = products if products is not None else []
         Category.category_count += 1
-        Category.product_count += len(self.products)
+        Category.product_count += len(self.__products)
+
+    def add_product(self, product: Product) -> None:
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        logger.error("product должен быть типа Product")
+
+    @property
+    def products(self) -> str:
+        return "\n".join((f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт." for p in self.__products))
