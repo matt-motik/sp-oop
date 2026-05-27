@@ -8,7 +8,7 @@ def test_init(category_1):
         category_1.description
         == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
     )
-    assert category_1.products[0].name == "Samsung Galaxy S23 Ultra"
+    assert category_1.products == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\nXiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.\n"
     assert category_1.category_count == 1
     assert category_1.product_count == 2
 
@@ -29,7 +29,7 @@ def test_category_with_empty_products():
 
 def test_category_with_none_products():
     category = Category("None Category", "None products", None)
-    assert category.products == []
+    assert category.products == ""
     assert category.product_count == 0
 
 

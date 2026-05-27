@@ -52,9 +52,8 @@ def test_create_categories_from_json_valid(tmp_path):
     assert len(categories) == 1
     assert isinstance(categories[0], Category)
     assert categories[0].name == "Смартфоны"
-    assert len(categories[0].products) == 1
-    assert isinstance(categories[0].products[0], Product)
-    assert categories[0].products[0].name == "iPhone"
+    assert categories[0].product_count == 1
+    assert categories[0].products == "iPhone, 1000.0 руб. Остаток: 5 шт.\n"
 
 
 def test_create_categories_from_json_file_not_found(tmp_path):
@@ -87,4 +86,4 @@ def test_create_categories_from_json_category_without_products(tmp_path):
         categories = create_categories_from_json("products.json")
 
     assert len(categories) == 1
-    assert categories[0].products == []
+    assert categories[0].products == ""
