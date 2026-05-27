@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from src.category import Category
-from src.product import Product
+from src.utils import confirm
 from src.utils import create_categories_from_json
 from src.utils import read_json_file
 
@@ -87,3 +87,35 @@ def test_create_categories_from_json_category_without_products(tmp_path):
 
     assert len(categories) == 1
     assert categories[0].products == ""
+
+
+@patch("builtins.input")
+def test_confirm_returns_true(mock_input, capsys):
+    mock_input.return_value = "y"
+    assert confirm() is True
+    mock_input.return_value = "yes"
+    assert confirm() is True
+    mock_input.return_value = "д"
+    assert confirm() is True
+    mock_input.return_value = "да"
+    assert confirm() is True
+    mock_input.side_effect = ["абракадабра", "yes"]
+    assert confirm() is True
+    captured = capsys.readouterr()
+    assert "Пожалуйста, введите 'y' (да) или 'n' (нет)." in captured.out
+
+
+@patch("builtins.input")
+def test_confirm_returns_false(mock_input, capsys):
+    mock_input.return_value = "n"
+    assert confirm() is False
+    mock_input.return_value = "no"
+    assert confirm() is False
+    mock_input.return_value = "н"
+    assert confirm() is False
+    mock_input.return_value = "нет"
+    assert confirm() is False
+    mock_input.side_effect = ["абракадабра", "нет"]
+    assert confirm() is False
+    captured = capsys.readouterr()
+    assert "Пожалуйста, введите 'y' (да) или 'n' (нет)." in captured.out
