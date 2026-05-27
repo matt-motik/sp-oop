@@ -1,10 +1,10 @@
 """Модуль для работы с категориями."""
+
 from .logger_creator import create_logger
-
-
-from src.product import Product
+from .product import Product
 
 logger = create_logger(__name__)
+
 
 class Category:
     """Класс, представляющий категорию продуктов.
@@ -39,11 +39,29 @@ class Category:
         Category.product_count += len(self.__products)
 
     def add_product(self, product: Product) -> None:
+        """Добавляет продукт в приватный список товаров категории.
+
+        Args:
+            product: Объект класса Product для добавления.
+        """
         if isinstance(product, Product):
             self.__products.append(product)
             Category.product_count += 1
-        logger.error("product должен быть типа Product")
+        else:
+            logger.error("product должен быть типа Product")
 
     @property
     def products(self) -> str:
-        return "\n".join((f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт." for p in self.__products))
+        r"""Возвращает отформатированную строку со списком товаров категории.
+
+        Returns:
+            Строка, содержащая информацию о каждом товаре в формате:
+            "Название продукта, X руб. Остаток: X шт.\n"
+
+        Example:
+            >>> cat = Category("Телефоны", "Смартфоны", [])
+            >>> cat.add_product(Product("iPhone 15", "Apple", 210000.0, 8))
+            >>> print(cat.products)
+            iPhone 15, 210000.0 руб. Остаток: 8 шт.
+        """
+        return "".join((f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт.\n" for p in self.__products))
