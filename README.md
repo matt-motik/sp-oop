@@ -55,8 +55,12 @@ poetry install
 | | [📦 Category](docs/api/category.md#Category) | Класс, представляющий категорию продуктов. |
 | | [⚙️ Category.add_product](docs/api/category.md#Category.add_product) | Добавляет продукт в приватный список товаров категории. |
 | | [⚙️ Category.products](docs/api/category.md#Category.products) | Возвращает отформатированную строку со списком товаров категории. |
+| | [⚙️ Category.products_list](docs/api/category.md#Category.products_list) | Возвращает список товаров категории. |
 | | [🔧 add_product](docs/api/category.md#add_product) | Добавляет продукт в приватный список товаров категории. |
 | | [🔧 products](docs/api/category.md#products) | Возвращает отформатированную строку со списком товаров категории. |
+| | [🔧 products_list](docs/api/category.md#products_list) | Возвращает список товаров категории. |
+| [**`category_iterator.py`**](docs/api/category_iterator.md) | | |
+| | [📦 CategoryIterator](docs/api/category_iterator.md#CategoryIterator) | Итератор для безопасного перебора товаров в категории. |
 | [**`logger_creator.py`**](docs/api/logger_creator.md) | | |
 | | [🔧 create_logger](docs/api/logger_creator.md#create_logger) | Функция для создания логгера. |
 | [**`path.py`**](docs/api/path.md) | | |
@@ -100,31 +104,33 @@ main.py не тестируется
 
 ```
 📈 Покрытие кода:
-tests/test_category.py .......                                           [ 21%]
-tests/test_logger_creator.py ..                                          [ 28%]
-tests/test_path.py ...                                                   [ 37%]
-tests/test_product.py .......                                            [ 59%]
+tests/test_category.py ..........                                        [ 25%]
+tests/test_category_iterator.py ..                                       [ 30%]
+tests/test_logger_creator.py ..                                          [ 35%]
+tests/test_path.py ...                                                   [ 42%]
+tests/test_product.py ..........                                         [ 67%]
 tests/test_utils.py .............                                        [100%]
-src/__init__.py             0      0   100%
-src/category.py            20      0   100%
-src/logger_creator.py      15      0   100%
-src/path.py                10      0   100%
-src/product.py             34      0   100%
-src/utils.py               52      0   100%
-TOTAL                     131      0   100%
+src/__init__.py                0      0   100%
+src/category.py               29      0   100%
+src/category_iterator.py      17      0   100%
+src/logger_creator.py         15      0   100%
+src/path.py                   10      0   100%
+src/product.py                40      0   100%
+src/utils.py                  52      0   100%
+TOTAL                        163      0   100%
 Coverage HTML written to dir htmlcov/src
 
 🎯 Результаты тестов src:
-============================= test session starts ==============================
-tests/test_category.py .......                                           [ 21%]
-tests/test_logger_creator.py ..                                          [ 28%]
-tests/test_path.py ...                                                   [ 37%]
-tests/test_product.py .......                                            [ 59%]
+tests/test_category.py ..........                                        [ 25%]
+tests/test_category_iterator.py ..                                       [ 30%]
+tests/test_logger_creator.py ..                                          [ 35%]
+tests/test_path.py ...                                                   [ 42%]
+tests/test_product.py ..........                                         [ 67%]
 tests/test_utils.py .............                                        [100%]
 ================================ tests coverage ================================
------------------------------------------------------
------------------------------------------------------
-============================== 32 passed in 0.10s ==============================
+--------------------------------------------------------
+--------------------------------------------------------
+============================== 40 passed in 0.09s ==============================
 ```
 
 > 📊 **HTML отчёт покрытия**: [`htmlcov/index.html`](htmlcov/src/index.html)
@@ -158,6 +164,10 @@ tests/test_utils.py .............                                        [100%]
 - [x] Реализовать класс-метод `Product.new_product()`, должен создавать объект из `dict`, поддерживать слияние дубликатов (сумма `quantity`, выбор `max(price)`)
 - [x] Приватизировать цену `Product`  (`__price`), реализовать геттер/сеттер
 - [x] Сеттер должен `price` валидировать `>0`, выводить предупреждение при `<=0`, запрашивать подтверждение при снижении цены
+- [x] Переопределить `__str__` в `Product` (формат: "Название, X руб. Остаток: X шт.")
+- [x] Переопределить `__str__` в `Category` (формат: "Название, количество продуктов: X шт.", сумма quantity)
+- [x] Переопределить `__add__` в `Product` для расчёта общей стоимости склада с проверкой типа
+- [x] Создать вспомогательный класс `CategoryIterator` с методами `__iter__` и `__next__`
 - [x] Написать тесты для всей новой функциональности
 - [x] Проверить линтеры (`flake8`, `mypy`, `pydocstyle`, `black`, `isort`)
 - [x] Финальная вычитка документации и обновление README
