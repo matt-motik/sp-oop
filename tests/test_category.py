@@ -6,9 +6,14 @@ def test_init(category_1):
     assert category_1.name == "Смартфоны"
     assert (
         category_1.description
-        == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
+        == "Смартфоны, как средство не только коммуникации,"
+        + " но и получения дополнительных функций для удобства жизни"
     )
-    assert category_1.products[0].name == "Samsung Galaxy S23 Ultra"
+    assert (
+        category_1.products
+        == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+        + "Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.\n"
+    )
     assert category_1.category_count == 1
     assert category_1.product_count == 2
 
@@ -29,7 +34,7 @@ def test_category_with_empty_products():
 
 def test_category_with_none_products():
     category = Category("None Category", "None products", None)
-    assert category.products == []
+    assert category.products == ""
     assert category.product_count == 0
 
 
@@ -60,3 +65,19 @@ def test_multiple_categories_counters():
     assert cat2.product_count == 4
     assert cat1.category_count == 3
     assert cat1.product_count == 4
+
+
+def test_add_product_valid(category_1, product_2):
+    old_count = category_1.product_count
+    category_1.add_product(product_2)
+
+    assert category_1.product_count == old_count + 1
+    assert product_2.name in category_1.products
+
+
+def test_add_product_invalid(category_1, caplog):
+    old_count = category_1.product_count
+    category_1.add_product("это не продукт")
+
+    assert "product должен быть типа Product" in caplog.text
+    assert category_1.product_count == old_count
