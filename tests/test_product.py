@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.product import Product
 
 
@@ -69,3 +71,17 @@ def test_price_setter_decrease_cancelled(mock_confirm, product_1, capsys):
     assert product_1.price == old_price
     captured = capsys.readouterr()
     assert "Действие отменено" in captured.out
+
+
+def test_product_str(product_1):
+    assert str(product_1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_product_add(product_1, product_2):
+    res = product_1 + product_2
+    assert res == 2580000.0
+
+
+def test_product_add_type_err(product_1):
+    with pytest.raises(TypeError):
+        _ = product_1 + 1000
