@@ -35,6 +35,16 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self) -> str:
+        """Возвращает Название продукта, X руб. Остаток: X шт."""
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: Product) -> float:
+        """Возвращает полную стоимость всех товаров на складе."""
+        if not isinstance(other, Product):
+            return NotImplemented
+        return self.price * self.quantity + other.price * other.quantity
+
     @classmethod
     def new_product(cls, product: dict, products: list[Product] | None = None) -> Product:
         """Создаёт экземпляр Product из словаря или обновляет существующий товар.
