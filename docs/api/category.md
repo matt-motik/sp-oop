@@ -1,6 +1,6 @@
 # Модуль: `category.py`
 
-*Сгенерировано: 2026-05-27 23:47:29*
+*Сгенерировано: 2026-06-03 23:47:01*
 
 ---
 
@@ -72,6 +72,31 @@ Example:
 
 ---
 
+<div id="Category.products_list"></div>
+
+## Category.products_list
+
+**Тип:** method
+
+**Кратко:** Возвращает список товаров категории.
+
+### Полная документация
+
+```python
+Возвращает список товаров категории.
+
+Returns:
+    список товаров
+
+Example:
+    >>> cat = Category("Телефоны", "Смартфоны", [])
+    >>> cat.add_product(Product("iPhone 15", "Apple", 210000.0, 8))
+    >>> print(cat.products_list[0])
+    iPhone 15, 210000.0 руб. Остаток: 8 шт.
+```
+
+---
+
 <div id="add_product"></div>
 
 ## add_product
@@ -112,6 +137,31 @@ Example:
     >>> cat = Category("Телефоны", "Смартфоны", [])
     >>> cat.add_product(Product("iPhone 15", "Apple", 210000.0, 8))
     >>> print(cat.products)
+    iPhone 15, 210000.0 руб. Остаток: 8 шт.
+```
+
+---
+
+<div id="products_list"></div>
+
+## products_list
+
+**Тип:** function
+
+**Кратко:** Возвращает список товаров категории.
+
+### Полная документация
+
+```python
+Возвращает список товаров категории.
+
+Returns:
+    список товаров
+
+Example:
+    >>> cat = Category("Телефоны", "Смартфоны", [])
+    >>> cat.add_product(Product("iPhone 15", "Apple", 210000.0, 8))
+    >>> print(cat.products_list[0])
     iPhone 15, 210000.0 руб. Остаток: 8 шт.
 ```
 

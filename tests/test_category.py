@@ -1,3 +1,5 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
 
@@ -81,3 +83,24 @@ def test_add_product_invalid(category_1, caplog):
 
     assert "product должен быть типа Product" in caplog.text
     assert category_1.product_count == old_count
+
+
+def test_category_str(category_1):
+    assert str(category_1) == "Смартфоны, количество продуктов: 19 шт."
+
+
+def test_category_product_list(category_1):
+    assert len(category_1.products_list) == 2
+    assert all(isinstance(p, Product) for p in category_1.products_list)
+
+
+def test_category_iter(category_1):
+    for product in category_1:
+        assert isinstance(product, Product)
+
+    iterator = iter(category_1)
+    for _ in range(len(category_1.products_list)):
+        next(iterator)
+
+    with pytest.raises(StopIteration):
+        next(iterator)

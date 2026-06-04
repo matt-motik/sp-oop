@@ -1,7 +1,12 @@
 """Модуль для работы с категориями."""
 
+from typing import TYPE_CHECKING
+
 from .logger_creator import create_logger
 from .product import Product
+
+if TYPE_CHECKING:
+    from .category_iterator import CategoryIterator  # noqa: F401
 
 logger = create_logger(__name__)
 
@@ -38,6 +43,10 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(self.__products)
 
+    def __str__(self) -> str:
+        """Возвращает: Название категории, количество продуктов: X шт."""
+        return f"{self.name}, количество продуктов: {sum(p.quantity for p in self.__products)} шт."
+
     def add_product(self, product: Product) -> None:
         """Добавляет продукт в приватный список товаров категории.
 
@@ -64,4 +73,25 @@ class Category:
             >>> print(cat.products)
             iPhone 15, 210000.0 руб. Остаток: 8 шт.
         """
-        return "".join((f"{p.name}, {p.price} руб. Остаток: {p.quantity} шт.\n" for p in self.__products))
+        return "".join((f"{p}\n" for p in self.__products))
+
+    @property
+    def products_list(self) -> list[Product]:
+        r"""Возвращает список товаров категории.
+
+        Returns:
+            список товаров
+
+        Example:
+            >>> cat = Category("Телефоны", "Смартфоны", [])
+            >>> cat.add_product(Product("iPhone 15", "Apple", 210000.0, 8))
+            >>> print(cat.products_list[0])
+            iPhone 15, 210000.0 руб. Остаток: 8 шт.
+        """
+        return self.__products
+
+    def __iter__(self) -> CategoryIterator:
+        """Делает объект Category итерируемым, возвращая CategoryIterator."""
+        from .category_iterator import CategoryIterator  # noqa: F811
+
+        return CategoryIterator(self)
