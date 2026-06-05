@@ -58,6 +58,7 @@ class Category:
             Category.product_count += 1
         else:
             logger.error("product должен быть типа Product")
+            raise TypeError
 
     @property
     def products(self) -> str:
