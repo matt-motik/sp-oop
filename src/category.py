@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 
+from .base_container import BaseContainer
 from .logger_creator import create_logger
 from .product import Product
 
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
 logger = create_logger(__name__)
 
 
-class Category:
+class Category(BaseContainer):
     """Класс, представляющий категорию продуктов.
 
     Attributes:
@@ -96,3 +97,8 @@ class Category:
         from .category_iterator import CategoryIterator  # noqa: F811
 
         return CategoryIterator(self)
+
+    @property
+    def total_price(self) -> float:
+        """Общая стоимость всех товаров в категории."""
+        return sum(p.price * p.quantity for p in self.__products)
