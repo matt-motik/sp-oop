@@ -79,10 +79,10 @@ def test_add_product_valid(category_1, product_2):
 
 def test_add_product_invalid(category_1, caplog):
     old_count = category_1.product_count
-    category_1.add_product("это не продукт")
-
-    assert "product должен быть типа Product" in caplog.text
-    assert category_1.product_count == old_count
+    with pytest.raises(TypeError):
+        category_1.add_product("это не продукт")
+        assert "В категорию можно добавлять только объекты типа Product или его наследников" in caplog.text
+        assert category_1.product_count == old_count
 
 
 def test_category_str(category_1):

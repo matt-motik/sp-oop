@@ -57,7 +57,8 @@ class Category:
             self.__products.append(product)
             Category.product_count += 1
         else:
-            logger.error("product должен быть типа Product")
+            logger.error("В категорию можно добавлять только объекты типа Product или его наследников")
+            raise TypeError("В категорию можно добавлять только объекты типа Product или его наследников")
 
     @property
     def products(self) -> str:
