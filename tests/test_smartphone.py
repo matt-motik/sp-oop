@@ -1,8 +1,4 @@
-from unittest.mock import patch
-
 import pytest
-
-from src.smartphone import Smartphone
 
 
 def test_smartphone_init(product_1):
