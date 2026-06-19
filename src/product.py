@@ -1,7 +1,8 @@
 """Модуль для работы с продуктами."""
-from .print_mixin import PrintMixin
+
 from .base_product import BaseProduct
 from .logger_creator import create_logger
+from .print_mixin import PrintMixin
 from .utils import confirm
 
 logger = create_logger(__name__)
