@@ -2,6 +2,8 @@
 
 from typing import TYPE_CHECKING
 
+from exceptions import QuantityError
+
 from .base_container import BaseContainer
 from .logger_creator import create_logger
 from .product import Product
@@ -54,12 +56,26 @@ class Category(BaseContainer):
         Args:
             product: Объект класса Product для добавления.
         """
-        if isinstance(product, Product):
+        try:
+            if not isinstance(product, Product):
+                logger.error("В категорию можно добавлять только объекты типа Product или его наследников")
+                raise TypeError("В категорию можно добавлять только объекты типа Product или его наследников")
+            if product.quantity <= 0:
+                raise QuantityError
+        except TypeError as e:
+            logger.error(e)
+            print(e)
+        except QuantityError as e:
+            logger.error(e)
+            print(e)
+        else:
             self.__products.append(product)
             Category.product_count += 1
-        else:
-            logger.error("В категорию можно добавлять только объекты типа Product или его наследников")
-            raise TypeError("В категорию можно добавлять только объекты типа Product или его наследников")
+            logger.info("Товар успешно добавлен")
+            print("Товар успешно добавлен")
+        finally:
+            logger.info("Добавление завершено")
+            print("Добавление завершено")
 
     @property
     def products(self) -> str:
@@ -102,3 +118,11 @@ class Category(BaseContainer):
     def total_price(self) -> float:
         """Общая стоимость всех товаров в категории."""
         return sum(p.price * p.quantity for p in self.__products)
+
+    def average_price(self) -> float:
+        """Средняя стоимость всех товаров в категории."""
+        try:
+            return sum(p.price for p in self.__products) / len(self.__products)
+        except ZeroDivisionError:
+            logger.info("Нет товаров в категории. Возвращаем 0")
+            return 0

@@ -39,7 +39,6 @@ class Product(BaseProduct, PrintMixin):
             self.quantity = quantity
         else:
             raise ValueError("Товар с нулевым количеством не может быть добавлен")
-        self.quantity = quantity
         super().__init__()
 
     def __str__(self) -> str:
