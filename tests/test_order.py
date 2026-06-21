@@ -16,3 +16,14 @@ def test_order_str():
     product = Product("Война и мир", "Толстой Л.Н.", 500, 5)
     order = Order(product, 2, "Заказ №2", " 2шт, война и мир")
     assert str(order) == "Заказ №2: Война и мир x2 = 1000 руб."
+
+
+def test_order_init_not_product(caplog):
+    _ = Order("not a product", 2, "Заказ №2", " 2шт, война и мир")
+    assert "В заказ можно добавлять только объекты типа Product или его наследников" in caplog.text
+
+
+def test_order_init_zero_quantity(product_1, caplog):
+    product_1.quantity = 0
+    _ = Order(product_1, 2, "Заказ №2", " 2шт, война и мир")
+    assert "Товар с нулевым количеством не может быть добавлен" in caplog.text

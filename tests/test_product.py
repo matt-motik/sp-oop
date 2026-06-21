@@ -85,3 +85,9 @@ def test_product_add(product_1, product_2):
 def test_product_add_type_err(product_1):
     with pytest.raises(TypeError):
         _ = product_1 + 1000
+
+
+def test_product_init_zero_quantity():
+    with pytest.raises(ValueError) as e:
+        _ = Product("P", "D", 10, 0)
+        assert e == "Товар с нулевым количеством не может быть добавлен"
