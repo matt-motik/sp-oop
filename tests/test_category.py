@@ -104,3 +104,7 @@ def test_category_iter(category_1):
 
     with pytest.raises(StopIteration):
         next(iterator)
+
+
+def test_category_total_price(category_1):
+    assert category_1.total_price == sum(p.price * p.quantity for p in category_1.products_list)

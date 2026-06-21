@@ -1,12 +1,14 @@
 """Модуль для работы с продуктами."""
 
+from .base_product import BaseProduct
 from .logger_creator import create_logger
+from .print_mixin import PrintMixin
 from .utils import confirm
 
 logger = create_logger(__name__)
 
 
-class Product:
+class Product(BaseProduct, PrintMixin):
     """Класс, представляющий продукт.
 
     Attributes:
@@ -34,6 +36,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self) -> str:
         """Возвращает Название продукта, X руб. Остаток: X шт."""

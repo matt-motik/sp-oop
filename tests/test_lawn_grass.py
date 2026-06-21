@@ -1,8 +1,4 @@
-from unittest.mock import patch
-
 import pytest
-
-from src.lawn_grass import LawnGrass
 
 
 def test_lawn_grass_init(grass_1):
@@ -18,6 +14,7 @@ def test_lawn_grass_init(grass_1):
 def test_lawn_grass_add(grass_1, grass_2):
     res = grass_1 + grass_2
     assert res == 16750.0
+
 
 def test_lawn_grass_add_type_err(grass_1, smartphone_1):
     with pytest.raises(TypeError):
