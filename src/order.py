@@ -1,5 +1,7 @@
 """Модуль для работы с заказами."""
 
+from exceptions import QuantityError
+
 from .base_container import BaseContainer
 from .logger_creator import create_logger
 from .product import Product
@@ -20,7 +22,23 @@ class Order(BaseContainer):
             name: Название заказа.
             description: Описание заказа.
         """
-        self.product = product
+        try:
+            if not isinstance(product, Product):
+                logger.error("В заказ можно добавлять только объекты типа Product или его наследников")
+                raise TypeError("В заказ можно добавлять только объекты типа Product или его наследников")
+            if product.quantity <= 0:
+                raise QuantityError
+        except TypeError as e:
+            logger.error(e)
+            print(e)
+        except QuantityError as e:
+            logger.error(e)
+            print(e)
+        else:
+            self.product = product
+            print("Товар успешно добавлен")
+        finally:
+            print("Добавление завершено")
         self.quantity = quantity
         self.name = name
         self.description = description

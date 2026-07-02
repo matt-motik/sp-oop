@@ -54,6 +54,15 @@ def category_2(product_2):
 
 
 @pytest.fixture
+def category_empty():
+    return Category(
+        "Apple",
+        "Смартфоны Apple",
+        [],
+    )
+
+
+@pytest.fixture
 def smartphone_1():
     return Smartphone(
         "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5, 95.5, "S23 Ultra", 256, "Серый"

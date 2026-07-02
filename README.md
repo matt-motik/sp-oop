@@ -67,12 +67,16 @@ poetry install
 | | [⚙️ Category.products](docs/api/category.md#Category.products) | Возвращает отформатированную строку со списком товаров категории. |
 | | [⚙️ Category.products_list](docs/api/category.md#Category.products_list) | Возвращает список товаров категории. |
 | | [⚙️ Category.total_price](docs/api/category.md#Category.total_price) | Общая стоимость всех товаров в категории. |
+| | [⚙️ Category.average_price](docs/api/category.md#Category.average_price) | Средняя стоимость всех товаров в категории. |
 | | [🔧 add_product](docs/api/category.md#add_product) | Добавляет продукт в приватный список товаров категории. |
 | | [🔧 products](docs/api/category.md#products) | Возвращает отформатированную строку со списком товаров категории. |
 | | [🔧 products_list](docs/api/category.md#products_list) | Возвращает список товаров категории. |
 | | [🔧 total_price](docs/api/category.md#total_price) | Общая стоимость всех товаров в категории. |
+| | [🔧 average_price](docs/api/category.md#average_price) | Средняя стоимость всех товаров в категории. |
 | [**`category_iterator.py`**](docs/api/category_iterator.md) | | |
 | | [📦 CategoryIterator](docs/api/category_iterator.md#CategoryIterator) | Итератор для безопасного перебора товаров в категории. |
+| [**`exceptions.py`**](docs/api/exceptions.md) | | |
+| | [📦 QuantityError](docs/api/exceptions.md#QuantityError) | Класс, представляющий исключения при попытке добавить продукт с нулевым количеством. |
 | [**`lawn_grass.py`**](docs/api/lawn_grass.md) | | |
 | | [📦 LawnGrass](docs/api/lawn_grass.md#LawnGrass) | Класс, представляющий Траву газонную. |
 | [**`logger_creator.py`**](docs/api/logger_creator.md) | | |
@@ -127,44 +131,39 @@ main.py не тестируется
 
 ```
 📈 Покрытие кода:
-tests/test_base_product.py .                                             [  1%]
-tests/test_category.py ...........                                       [ 23%]
-tests/test_category_iterator.py ..                                       [ 27%]
-tests/test_lawn_grass.py ...                                             [ 33%]
-tests/test_logger_creator.py ..                                          [ 37%]
-tests/test_order.py ..                                                   [ 41%]
-tests/test_path.py ...                                                   [ 47%]
-tests/test_print_mixin.py .                                              [ 49%]
-tests/test_product.py ..........                                         [ 68%]
-tests/test_smartphone.py ...                                             [ 74%]
-tests/test_utils.py .............                                        [100%]
 src/__init__.py                0      0   100%
 src/base_container.py          3      0   100%
 src/base_product.py            4      0   100%
-src/category.py               34      0   100%
+src/category.py               54      0   100%
 src/category_iterator.py      17      0   100%
-src/lawn_grass.py             11      0   100%
+src/exceptions.py              6      0   100%
+src/lawn_grass.py             13      0   100%
 src/logger_creator.py         15      0   100%
-src/order.py                  15      0   100%
+src/order.py                  30      0   100%
 src/path.py                   10      0   100%
 src/print_mixin.py             7      0   100%
-src/product.py                43      0   100%
-src/smartphone.py             12      0   100%
+src/product.py                45      0   100%
+src/smartphone.py             14      0   100%
 src/utils.py                  52      0   100%
-TOTAL                        223      0   100%
+TOTAL                        270      0   100%
 Coverage HTML written to dir htmlcov/src
 
 🎯 Результаты тестов src:
-tests/test_order.py ..                                                   [ 41%]
-tests/test_path.py ...                                                   [ 47%]
-tests/test_print_mixin.py .                                              [ 49%]
-tests/test_product.py ..........                                         [ 68%]
-tests/test_smartphone.py ...                                             [ 74%]
+tests/test_base_product.py .                                             [  1%]
+tests/test_category.py .............                                     [ 25%]
+tests/test_category_iterator.py ..                                       [ 28%]
+tests/test_lawn_grass.py ...                                             [ 33%]
+tests/test_logger_creator.py ..                                          [ 37%]
+tests/test_order.py ....                                                 [ 44%]
+tests/test_path.py ...                                                   [ 50%]
+tests/test_print_mixin.py .                                              [ 51%]
+tests/test_product.py ...........                                        [ 71%]
+tests/test_smartphone.py ...                                             [ 76%]
 tests/test_utils.py .............                                        [100%]
 ================================ tests coverage ================================
 --------------------------------------------------------
 --------------------------------------------------------
-============================== 51 passed in 0.12s ==============================
+============================== 56 passed in 0.13s ==============================
 ```
 
 > 📊 **HTML отчёт покрытия**: [`htmlcov/index.html`](htmlcov/src/index.html)
@@ -207,6 +206,11 @@ tests/test_utils.py .............                                        [100%]
 - [x] Доработать метод `add_product`: нельзя добавить объект, не являющийся `Product` или его наследником (используется `isinstance()`, выбрасывается `TypeError`)
 - [x] Реализован абстрактный класс `BaseProduct` и класс-миксин `PrintMixin` с множественным наследованием в `Product`
 - [x] Создан абстрактный класс `BaseContainer`, от которого наследуют `Category` и новый класс `Order`
+- [x] Реализована валидация количества при создании Product: при quantity <= 0 выбрасывается ValueError
+- [x] В Category добавлен метод average_price() с обработкой ZeroDivisionError (возвращает 0)
+- [x] Создан пользовательский класс исключения QuantityError
+- [x] QuantityError используется в Category.add_product() и Order с блоками try/except/else/finally
+- [x] Добавлено логирование и вывод сообщений при добавлении товаров в категорию и заказ
 - [x] Исправить старые тесты с учётом изменений
 - [x] Написать тесты для всей новой функциональности
 - [x] Проверить линтеры (`flake8`, `mypy`, `pydocstyle`, `black`, `isort`)

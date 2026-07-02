@@ -69,9 +69,11 @@ def test_multiple_categories_counters():
     assert cat1.product_count == 4
 
 
-def test_add_product_valid(category_1, product_2):
+def test_add_product_valid(category_1, product_2, caplog):
     old_count = category_1.product_count
     category_1.add_product(product_2)
+    assert "Товар успешно добавлен" in caplog.text
+    assert "Добавление завершено" in caplog.text
 
     assert category_1.product_count == old_count + 1
     assert product_2.name in category_1.products
@@ -79,10 +81,9 @@ def test_add_product_valid(category_1, product_2):
 
 def test_add_product_invalid(category_1, caplog):
     old_count = category_1.product_count
-    with pytest.raises(TypeError):
-        category_1.add_product("это не продукт")
-        assert "В категорию можно добавлять только объекты типа Product или его наследников" in caplog.text
-        assert category_1.product_count == old_count
+    category_1.add_product("это не продукт")
+    assert "В категорию можно добавлять только объекты типа Product или его наследников" in caplog.text
+    assert category_1.product_count == old_count
 
 
 def test_category_str(category_1):
@@ -108,3 +109,15 @@ def test_category_iter(category_1):
 
 def test_category_total_price(category_1):
     assert category_1.total_price == sum(p.price * p.quantity for p in category_1.products_list)
+
+
+def test_category_add_zero_quantity(category_1, product_1, caplog):
+    product_1.quantity = 0
+    category_1.add_product(product_1)
+    assert "Товар с нулевым количеством не может быть добавлен" in caplog.text
+    assert "Добавление завершено" in caplog.text
+
+
+def test_category_average_price(category_empty, category_1, product_1, caplog):
+    assert category_empty.average_price() == 0
+    assert category_1.average_price() == 105500.0

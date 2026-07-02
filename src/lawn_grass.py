@@ -1,6 +1,9 @@
 """Модуль для работы с продуктами-Трава газонная."""
 
+from .logger_creator import create_logger
 from .product import Product
+
+logger = create_logger(__name__)
 
 
 class LawnGrass(Product):
